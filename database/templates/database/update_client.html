@@ -1,0 +1,21 @@
+{% extends 'database/base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<center>
+    <h1>Update Client</h1>
+    <form action="" method=POST>
+     {%csrf_token%}
+    {{form.as_p}}
+        </br>
+        <input
+                type="submit"
+                value="Update"
+                class="btn btn-secondary">
+
+    </form>
+</center>
+{% else %}
+<h1>Trebuie sa fi logat ca sa poti accesa continutul!</h1>
+<a href="{% url 'login'%}" class="btn btn-secondary ">Aici te poti loga.</a>
+{% endif %}
+{% endblock %}

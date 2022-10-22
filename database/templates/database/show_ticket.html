@@ -1,0 +1,34 @@
+{% extends 'database/base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<h1>Ticket</h1>
+<div class="card">
+  <div class="card-header">
+   Numar ticket: {{ticket.id }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Detalii ticket: {{ticket.name }}</h5>
+    <p class="card-text">
+      <ul>
+        <li>Cod Produs: {{ticket.cod_produs}}</li>
+        <li>Nume Produs: {{ticket.nume_produs}}</li>
+        <li>Brand: {{ticket.brand_produs}}</li>
+        <li>Data ticket:{{ticket.data_ticket}}</li>
+        <li>Client: {{ticket.client}}</li>
+        <li>Agent: {{ticket.agent}}</li>
+        <li>Descriere: {{ticket.descriere}}</li>
+        <li>Tehnician:
+            {% for tehnician in ticket.tehnician.all %}
+            {{tehnician}}<br/>
+            {% endfor %}
+        </li>
+        <li>Aprobat:{{ticket.approved}}</li>
+      </ul>
+    </p>
+  </div>
+</div>
+{% else %}
+<h1>Trebuie sa fi logat ca sa poti accesa continutul!</h1>
+<a href="{% url 'login'%}" class="btn btn-secondary ">Aici te poti loga.</a>
+{% endif %}
+{% endblock %}}

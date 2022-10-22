@@ -1,0 +1,26 @@
+{% extends 'database/base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<h1>Client</h1>
+<div class="card">
+  <div class="card-header">
+   Numar client: {{client.id }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Nume client: {{client.name }}</h5>
+    <p class="card-text">
+        <ul>
+    <li>Adresa: {{client.adresa}}</li>
+    <li>Cod Postal: {{client.zip_code}}</li>
+    <li>Telefon contact: {{client.phone}}</li>
+    <li>Adresa de email:{{client.email_address}}</li>
+    <li>Persoana de contact: {{client.contact}}</li>
+</ul>
+    </p>
+  </div>
+</div>
+{% else %}
+<h1>Trebuie sa fi logat ca sa poti accesa continutul!</h1>
+<a href="{% url 'login'%}" class="btn btn-secondary ">Aici te poti loga.</a>
+{% endif %}
+{% endblock %}}

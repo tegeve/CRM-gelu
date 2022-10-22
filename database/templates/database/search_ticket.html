@@ -1,0 +1,20 @@
+{% extends 'database/base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<center>
+    {% if searched %}
+
+<h1>Ati cautat ...{{ searched }}</h1><br/>
+    {% for ticket in tickets %}
+       <a href="{% url 'show-ticket' ticket.id %}"> {{ticket}}</a><br/>
+    {% endfor %}
+    {% else %}
+    <h1>Faceti cautarea dupa ticket!</h1>
+    {% endif %}
+</center>
+{% else %}
+<h1>Trebuie sa fi logat ca sa poti accesa continutul!</h1>
+<a href="{% url 'login'%}" class="btn btn-secondary ">Aici te poti loga.</a>
+{% endif %}
+
+{% endblock %}}

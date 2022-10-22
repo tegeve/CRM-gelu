@@ -1,0 +1,58 @@
+{% extends 'database/base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<h1>Tichete</h1>
+
+{% for ticket in tickets %}
+<div class="card">
+  <div class="card-header">
+   Numar ticket: 191111-{{ticket.id }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Nume Produs: {{ticket.nume_produs}}</h5>
+    <p class="card-text">
+        <ul>
+    <li>Cod Produs: {{ticket.cod_produs}}</li>
+    <li>Nume Produs: {{ticket.nume_produs}}</li>
+    <li>Brand: {{ticket.brand_produs}}</li>
+    <li>Data ticket:{{ticket.data_ticket}}</li>
+    <li>Client: {{ticket.client}}</li>
+    <li>Agent: {{ticket.agent}}</li>
+    <li>Desciere: {{ticket.descriere}}</li>
+    <li>Tehnician:
+    {% for tehnician in ticket.tehnician.all %}
+    {{tehnician}}<br/>
+    {% endfor %}
+    </li>
+    <li>Aprobat:{{ticket.approved}}</li>
+</ul>
+    <a href="{%url 'update-ticket' ticket.id %}" class="btn btn-outline-secondary btn-sm">Update</a>
+    <a href="{%url 'delete-ticket' ticket.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+      <a href="{%url 'generate_to_pdf' %}" class="btn btn-outline-success btn-sm">PDF</a>
+    </p>
+  </div>
+</div>
+{% endfor %}
+<hr>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+{% if tickets.has_previous %}
+	<li class="page-item"><a class="page-link" href="?page=1">&laquo Prima</a></li>
+	<li class="page-item"><a class="page-link" href="?page={{ tickets.previous_page_number }}">Inapoi</a></li>
+{% endif %}
+{% for i in nums %}
+	<li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+{% endfor %}
+{% if tickets.has_next %}
+	<li class="page-item"><a class="page-link" href="?page={{ tickets.next_page_number }}">Urmatoarea</a></li>
+	<li class="page-item"><a class="page-link" href="?page={{ tickets.paginator.num_pages }}">Ultima &raquo</a></li>
+{% endif %}
+ </ul>
+</nav>
+<br/>
+<hr>
+{% else %}
+<h1>Trebuie sa fi logat ca sa poti accesa continutul!</h1>
+<a href="{% url 'login'%}" class="btn btn-secondary ">Aici te poti loga.</a>
+{% endif %}
+{% endblock %}}

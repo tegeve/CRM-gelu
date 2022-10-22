@@ -1,0 +1,27 @@
+{% extends 'database/base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+{% if user == ticket.agent  %}
+<center>
+    <h1>Update Ticket</h1>
+    User:{{user}}
+    Agent:{{ticket.agent}}
+    <form action="" method=POST>
+     {%csrf_token%}
+    {{form.as_p}}
+        </br>
+        <input
+                type="submit"
+                value="Update"
+                class="btn btn-secondary">
+
+    </form>
+</center>
+{% else %}
+<h1>Doar agenti sau team leaderii pot edita !</h1>
+{% endif %}
+{% else %}
+<h1>Trebuie sa fi logat ca sa poti accesa continutul!</h1>
+<a href="{% url 'login'%}" class="btn btn-secondary ">Aici te poti loga.</a>
+{% endif %}
+{% endblock %}}
